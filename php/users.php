@@ -1,13 +1,7 @@
 <?php
 require_once __DIR__ . '/session_boot.php';
 
-/* =================== CONFIG DB =================== */
-$host    = '127.0.0.1';
-$db      = 'u418740807_ea0OF';
-$user    = 'u418740807_QO934';
-$pass    = '8Il4@Tnx^';
-$charset = 'utf8mb4';
-
+require_once __DIR__ . '/config/db_connect.php';
 header('Content-Type: application/json; charset=utf-8');
 
 
@@ -509,3 +503,4 @@ if ($method === 'DELETE') {
 
 /* Metodo non consentito */
 respond(['error'=>'Metodo non consentito'],405);
+
