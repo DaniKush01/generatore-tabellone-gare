@@ -28,45 +28,7 @@ if (isset($_GET['flush'])) {
   exit;
 }
 
-/* ============ CONFIG DB ============ */
-$host    = '127.0.0.1';
-$db      = 'u418740807_ea0OF';
-$user    = 'u418740807_QO934';
-$pass    = '8Il4@Tnx^';
-$charset = 'utf8mb4';
-
-/* ============ CONNESSIONE PDO ============ */
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-  PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
-try {
-  $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (PDOException $e) {
-  http_response_code(500);
-  echo json_encode(['error' => 'Connessione DB fallita', 'detail' => $e->getMessage()]);
-  exit;
-}
-
-/* ?diag=1 → conferme su DB e tabella */
-if (isset($_GET['diag'])) {
-  try {
-    $dbName = $pdo->query('SELECT DATABASE()')->fetchColumn();
-    $hostNm = $pdo->query('SELECT @@hostname')->fetchColumn();
-    $hasTbl = (bool)$pdo->query("SHOW TABLES LIKE 'atleti'")->fetchColumn();
-  } catch (Throwable $e) {
-    $dbName = $hostNm = 'n/a'; $hasTbl = false;
-  }
-  echo json_encode([
-    'database' => $dbName,
-    'mysql_host' => $hostNm,
-    'table_atleti_exists' => $hasTbl,
-    'post_keys' => array_keys($_POST),
-  ]);
-  exit;
-}
-
+require_once __DIR__ . '/config/db_connect.php';
 /* ============ COSTANTI/REGOLE ============ */
 $NON_PESATE = [
   'dimostrazione' => 1,
@@ -238,3 +200,4 @@ if ($inserted < 1) {
 $out = ['success' => true, 'inseriti' => $inserted];
 if (isset($_GET['ids'])) $out['ids'] = $insert_ids;
 echo json_encode($out);
+
