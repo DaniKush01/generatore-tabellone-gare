@@ -2,96 +2,217 @@
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partecipazione Gare | Menu</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* styling leggero per il bottone icona */
-        .icon-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 10px;
-            /* simile agli altri nav-btn */
-        }
 
-        .icon-btn svg {
-            width: 22px;
-            height: 22px;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title class="app-name">Partecipazione Gare | Menu</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.icon-btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:8px 10px;
+}
+
+.icon-btn svg{
+width:22px;
+height:22px;
+display:block;
+}
+
+</style>
+
 </head>
 
+
 <body>
-    <div class="page">
-        <div class="wrapper">
-            <div class="navbar" style="padding: 0%;">
-                <div class="row col-4" style="margin: 0px;">
-                    <div class="field" style="width: 5%;">
-                    </div>
-                    <div class="field" style="width: 20%;">
-                        <button class="nav-btn" id="navBack">← Indietro</button>
-                    </div>
-                    <div class="field" style="width: 40%;">
-                        <button class="nav-btn" id="navHome">Home</button>
-                    </div>
-                    <div class="field" style="width: 20%;">
-                        <button class="nav-btn" id="navFwd">→ Avanti</button>
-                    </div>
-                    <div class="field" style="width: 5%;">
-                    </div>
-                    <div class="field" style="width: 10%;">
-                        <!-- Icona logout al posto del testo -->
-                        <button class="nav-btn icon-btn" id="btnLogout" aria-label="Esci" title="Esci">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                aria-hidden="true">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                <polyline points="16 17 21 12 16 7" />
-                                <line x1="21" y1="12" x2="9" y2="12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- pulsanti visibili a tutti -->
-            <div class="row col-2">
-                <div class="field">
-                    <button id="btnIscrivi">Iscrivi Atleta</button>
-                </div>
-                <div class="field">
-                    <button id="btnGestisci">Gestisci Atleti</button>
-                </div>
-            </div>
+<div class="page">
 
-            <!-- sezione visibile solo ad admin -->
-            <div class="row col-2" id="viewAdmin" style="display:none;">
-                <div class="field">
-                    <button id="btnTabellone">Visualizza Tabellone</button>
-                </div>
-                <div class="field">
-                    <button id="btnUtenti">Gestione Utenti</button>
-                </div>
-            </div>
-            <div class="row col-2">
-                <div class="field">
-                    <button id="btnTuttiAtleti" class="btn">Tutti gli Atleti</button>
-                </div>
-                <div class="field">
-                    <!--
-                    <button id="btnProfilo" class="btn">Profilo</button>
-                    -->
+<div class="wrapper">
 
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="js/auth.js"></script>
-    <script src="js/menu.js"></script>
-    <script src="js/nav.js"></script>
+<!-- NAVBAR -->
+
+<div class="navbar" style="padding:0%">
+
+<div class="row col-4" style="margin:0">
+
+<div class="field" style="width:5%"></div>
+
+<div class="field" style="width:20%">
+<button class="nav-btn" id="navBack">← Indietro</button>
+</div>
+
+<div class="field" style="width:40%">
+<button class="nav-btn" id="navHome">Home</button>
+</div>
+
+<div class="field" style="width:20%">
+<button class="nav-btn" id="navFwd">→ Avanti</button>
+</div>
+
+<div class="field" style="width:5%"></div>
+
+<div class="field" style="width:10%">
+
+<button class="nav-btn icon-btn" id="btnLogout" aria-label="Esci" title="Esci">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round">
+
+<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+<polyline points="16 17 21 12 16 7"/>
+<line x1="21" y1="12" x2="9" y2="12"/>
+
+</svg>
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- LOGO -->
+
+<div class="row-list">
+
+<div class="field" style="text-align:center">
+
+<img class="app-logo" src="" style="max-width:140px">
+
+</div>
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span class="app-name">Menu</span>
+
+</div>
+
+</div>
+
+
+<!-- PULSANTI UTENTE -->
+
+<div class="row col-2">
+
+<div class="field">
+<button id="btnIscrivi">Iscrivi Atleta</button>
+</div>
+
+<div class="field">
+<button id="btnGestisci">Gestisci Atleti</button>
+</div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="row col-2" id="viewAdmin" style="display:none">
+
+<div class="field">
+<button id="btnTabellone">Visualizza Tabellone</button>
+</div>
+
+<div class="field">
+<button id="btnUtenti">Gestione Utenti</button>
+</div>
+
+</div>
+
+
+<div class="row col-2">
+
+<div class="field">
+<button id="btnTuttiAtleti" class="btn">Tutti gli Atleti</button>
+</div>
+
+<div class="field"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="js/auth.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/nav.js"></script>
+
+
+<!-- CONFIG WHITELABEL -->
+
+<script>
+
+async function loadConfig(){
+
+try{
+
+const res = await fetch("../config_public.php");
+
+const config = await res.json();
+
+
+/* LOGO */
+
+document.querySelectorAll(".app-logo").forEach(el=>{
+el.src = config.brand.logo;
+});
+
+
+/* BRAND */
+
+document.querySelectorAll(".app-name").forEach(el=>{
+el.textContent = config.brand.name;
+});
+
+
+/* COLORI */
+
+document.documentElement.style.setProperty(
+"--primary",
+config.theme.primary
+);
+
+document.documentElement.style.setProperty(
+"--primary-dark",
+config.theme.primary_dark
+);
+
+}catch(e){
+
+console.warn("config non caricata",e);
+
+}
+
+}
+
+loadConfig();
+
+</script>
+
+
 </body>
-
 </html>
