@@ -1,91 +1,284 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profilo utente</title>
-  <link rel="stylesheet" href="css/style.css" />
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title class="app-name">Profilo utente</title>
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
+
 <body>
-  <div class="page">
-    <div class="wrapper">
 
-      <!-- titolo -->
-      <div class="row-list">
-        <div class="field title">
-          <span>Profilo Utente</span>
-        </div>
-      </div>
+<div class="page">
 
-      <!-- info utente -->
-      <div class="row-list col-3" id="userInfo">
-        <div class="field"><strong>Email</strong><br><span id="uEmail">—</span></div>
-        <div class="field"><strong>Palestra</strong><br><span id="uGym">—</span></div>
-        <div class="field"><strong>Ruolo</strong><br><span id="uRole">—</span></div>
-      </div>
+<div class="wrapper">
 
-      <!-- messaggi globali -->
-      <div class="row-list">
-        <div class="field" id="globalMsg" style="width:100%; text-align:center;"></div>
-      </div>
 
-      <!-- cambio password -->
-      <div class="row-list">
-        <div class="field title"><span>Cambia password</span></div>
-      </div>
-      <form id="pwdForm" class="row" style="flex-wrap:wrap; justify-content:center; gap:8px;">
-        <div class="field">
-          <input type="password" id="oldPwd" placeholder="Password attuale" required />
-        </div>
-        <div class="field">
-          <input type="password" id="newPwd" placeholder="Nuova password (min 8)" required />
-        </div>
-        <div class="field">
-          <input type="password" id="newPwd2" placeholder="Conferma nuova password" required />
-        </div>
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <button type="submit">Aggiorna password</button>
-        </div>
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <small id="pwdMsg"></small>
-        </div>
-      </form>
+<!-- LOGO -->
 
-      <!-- cambio email (invio link di conferma) -->
-      <div class="row-list" style="margin-top:12px;">
-        <div class="field title"><span>Cambia email</span></div>
-      </div>
-      <form id="emailForm" class="row" style="flex-wrap:wrap; justify-content:center; gap:8px;">
-        <div class="field">
-          <input type="email" id="newEmail" placeholder="Nuova email" required />
-        </div>
-        <div class="field">
-          <input type="email" id="newEmail2" placeholder="Conferma nuova email" required />
-        </div>
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <button type="submit">Invia link di conferma</button>
-        </div>
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <small id="emailMsg"></small>
-        </div>
-      </form>
+<div class="row-list">
 
-      <!-- azioni -->
-      <div class="row" style="justify-content:center; margin-top:16px; gap:8px;">
-        <div class="field">
-          <button id="btnBack">← Indietro</button>
-        </div>
-        <div class="field">
-          <button id="btnHome">Home</button>
-        </div>
-        <div class="field">
-          <button id="btnLogout">Esci</button>
-        </div>
-      </div>
+<div class="field" style="text-align:center">
 
-    </div>
-  </div>
+<img class="app-logo" src="" style="max-width:140px">
 
-  <script src="js/profilo.js"></script>
+</div>
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span class="app-name">Profilo Utente</span>
+
+</div>
+
+</div>
+
+
+<!-- INFO UTENTE -->
+
+<div class="row-list col-3" id="userInfo">
+
+<div class="field">
+<strong>Email</strong><br>
+<span id="uEmail">—</span>
+</div>
+
+<div class="field">
+<strong>Palestra</strong><br>
+<span id="uGym">—</span>
+</div>
+
+<div class="field">
+<strong>Ruolo</strong><br>
+<span id="uRole">—</span>
+</div>
+
+</div>
+
+
+<!-- MESSAGGI GLOBALI -->
+
+<div class="row-list">
+
+<div class="field" id="globalMsg"
+style="width:100%;text-align:center;">
+
+</div>
+
+</div>
+
+
+<!-- CAMBIO PASSWORD -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span>Cambia password</span>
+
+</div>
+
+</div>
+
+
+<form id="pwdForm" class="row"
+style="flex-wrap:wrap;justify-content:center;gap:8px;">
+
+<div class="field">
+
+<input type="password"
+id="oldPwd"
+placeholder="Password attuale"
+required>
+
+</div>
+
+<div class="field">
+
+<input type="password"
+id="newPwd"
+placeholder="Nuova password (min 8)"
+required>
+
+</div>
+
+<div class="field">
+
+<input type="password"
+id="newPwd2"
+placeholder="Conferma nuova password"
+required>
+
+</div>
+
+<div class="field"
+style="flex-basis:100%;text-align:center;">
+
+<button type="submit">
+
+Aggiorna password
+
+</button>
+
+</div>
+
+<div class="field"
+style="flex-basis:100%;text-align:center;">
+
+<small id="pwdMsg"></small>
+
+</div>
+
+</form>
+
+
+<!-- CAMBIO EMAIL -->
+
+<div class="row-list" style="margin-top:12px;">
+
+<div class="field title">
+
+<span>Cambia email</span>
+
+</div>
+
+</div>
+
+
+<form id="emailForm" class="row"
+style="flex-wrap:wrap;justify-content:center;gap:8px;">
+
+<div class="field">
+
+<input type="email"
+id="newEmail"
+placeholder="Nuova email"
+required>
+
+</div>
+
+<div class="field">
+
+<input type="email"
+id="newEmail2"
+placeholder="Conferma nuova email"
+required>
+
+</div>
+
+<div class="field"
+style="flex-basis:100%;text-align:center;">
+
+<button type="submit">
+
+Invia link di conferma
+
+</button>
+
+</div>
+
+<div class="field"
+style="flex-basis:100%;text-align:center;">
+
+<small id="emailMsg"></small>
+
+</div>
+
+</form>
+
+
+<!-- AZIONI -->
+
+<div class="row"
+style="justify-content:center;margin-top:16px;gap:8px;">
+
+<div class="field">
+<button id="btnBack">← Indietro</button>
+</div>
+
+<div class="field">
+<button id="btnHome">Home</button>
+</div>
+
+<div class="field">
+<button id="btnLogout">Esci</button>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script src="js/profilo.js"></script>
+
+
+<!-- CONFIG WHITELABEL -->
+
+<script>
+
+async function loadConfig(){
+
+try{
+
+const res = await fetch("../config_public.php");
+
+const config = await res.json();
+
+
+/* LOGO */
+
+document.querySelectorAll(".app-logo").forEach(el=>{
+el.src = config.brand.logo;
+});
+
+
+/* BRAND */
+
+document.querySelectorAll(".app-name").forEach(el=>{
+el.textContent = config.brand.name;
+});
+
+
+/* COLORI */
+
+document.documentElement.style.setProperty(
+"--primary",
+config.theme.primary
+);
+
+document.documentElement.style.setProperty(
+"--primary-dark",
+config.theme.primary_dark
+);
+
+}catch(e){
+
+console.warn("config non caricata",e);
+
+}
+
+}
+
+loadConfig();
+
+</script>
+
+
 </body>
 </html>
