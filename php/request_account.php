@@ -6,8 +6,8 @@ header('Content-Type: application/json; charset=utf-8');
 /* Config */
 //$ADMIN_EMAIL = 'admin@jujitsugroup.it'; // <-- metti qui la mail di destinazione
 $ADMIN_EMAIL = 'angeli.daniele01@gmail.com';
-$MAIL_FROM   = 'noreply@jujitsugroup.it';
-$MAIL_NAME   = 'Jujitsu Group';
+$MAIL_FROM   = 'noreply@topfightpistoia.com';
+$MAIL_NAME   = 'Top Fight;
 $SMTP = [
   'enabled' => false, 'host'=>'smtp.example.com', 'user'=>'', 'pass'=>'', 'port'=>587, 'secure'=>'tls'
 ];
@@ -70,3 +70,4 @@ $ok = sendMailGeneric($ADMIN_EMAIL, 'Richiesta credenziali - '.$palestra, $html)
 if (!$ok) respond(['error'=>'Invio email fallito'], 500);
 
 respond(['ok'=>true]);
+
