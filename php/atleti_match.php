@@ -2,24 +2,7 @@
 // atleti_match.php
 require_once __DIR__ . '/session_boot.php';
 
-header('Content-Type: application/json; charset=utf-8');
-
-$host    = '127.0.0.1';
-$db      = 'u418740807_ea0OF';
-$user    = 'u418740807_QO934';
-$pass    = '8Il4@Tnx^';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
-
-try {
-    /* Connessione */
-    $pdo = new PDO($dsn, $user, $pass, $options);
-
+require_once __DIR__ . '/config/db_connect.php';
     /* Lettura filtri dal form */
     $competizione = $_POST['competizione'] ?? null; // Kick-Jitsu | Lotta a Terra | Submission | Dimostrazione
     $sesso        = $_POST['sesso']        ?? null; // M | F
@@ -97,3 +80,4 @@ try {
     http_response_code(500);
     echo json_encode(['error' => 'Errore server'], JSON_UNESCAPED_UNICODE);
 }
+
