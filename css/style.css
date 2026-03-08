@@ -1,0 +1,327 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../GestioneFirma/src/fonts/Montserrat-regular/Montserrat-Regular.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../.././GestioneFirma/src/fonts/Montserrat-regular/Montserrat-Regular.ttf') format('truetype');
+}
+
+body {
+    background-color: #b0bfd6;
+    margin: 0px;
+    font-family: 'Montserrat';
+}
+
+
+.page {
+    display: inline-block;
+    width: 100%;
+    margin: 0px;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.wrapper {
+    display: inline-block;
+    width: 1240px;
+    color: #000;
+    background-color: #FFF;
+    border-radius: 10px;
+    box-shadow: 0px 0px 41px 0px rgb(99 109 124);
+    width: 90%;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.nav-btn {
+    width: 100%;
+    border: 1px solid #bf191b;
+    background: #bf191b;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    filter: brightness(1.05);
+}
+
+.row,
+.row-table,
+.row-wrapper,
+.row-modal {
+    gap: 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.row-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.row-wrapper {
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.row-table {
+    text-align: left;
+    margin-bottom: 0px;
+    width: 100%;
+    gap: 1%;
+    padding: 0px;
+    margin-top: 0px;
+    border-bottom: 1px solid grey;
+}
+
+.row-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.row-header {
+    padding-top: 0px;
+    cursor: default;
+}
+
+
+.row-content:hover {
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.4);
+}
+
+.row-header .field:hover {
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.4);
+}
+
+.row-modal .field {
+    width: 100%;
+}
+
+.col-7 .field {
+    width: 14%;
+}
+
+.col-6 .field {
+    width: 16%;
+}
+
+.col-5 .field {
+    width: 20%;
+}
+
+.col-4 .field {
+    width: 25%;
+}
+
+.col-3 .field {
+    width: 33.3%;
+}
+
+.col-2 .field {
+    width: 50%;
+}
+
+.col-1 .field {
+    width: 100%;
+}
+
+.field img {
+    width: 200px;
+}
+
+.field form {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.field form input[type="text"],
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form input[type="tel"],
+form textarea,
+.field form input[type="email"],
+.field form input[type="number"],
+.field form input[type="password"],
+.field form button,
+.field form select, form select, .toolbar select, .toolbar input,
+.field button {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    border: solid 1px #bf191b;
+}
+
+.field form input[type="checkbox"] {
+    display: none;
+}
+
+.field form label {
+    width: 40%;
+    cursor: pointer;
+    user-select: none;
+}
+
+.field form p,
+.field form label {
+    font-size: 0.8em;
+}
+
+.field form p {
+    width: 100%;
+}
+
+.field form button,
+.field button {
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #bf191b;
+    font-weight: bold;
+    color: #f0f0f0;
+    border-radius: 5px;
+    padding: 5px;
+    border: solid 1px #bf191b;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.field form button:hover,
+.field button:hover {
+    transform: translateX(-8px) translateY(8px);
+    box-shadow: 8px -8px #b0bfd6;
+}
+
+.field form button:not(:hover),
+.field button:not(:hover) {
+    transform: translateX(0) translateY(0);
+    box-shadow: 0 0 #b0bfd6;
+}
+
+.field form a {
+    color: #bf191b;
+    text-decoration: none;
+}
+
+.field button {
+    padding: 20px;
+    width: 50%;
+}
+
+.title{
+    background-color: #bf191b;
+    padding: 10px;
+    font-size: 1.8em;
+    color: white;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.title-tab{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #bf191b;
+}
+
+#athleteList .row-list{
+    border-top: 1px #bf191b solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.row-list .field button{
+    padding:10px;
+    width: 20%;
+    border: none;
+    transition: none;
+}
+
+.seed .meta { opacity: .7; }
+
+
+/* ==== RESPONSIVE ==== */
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+    .page { padding: 6px 0; }
+    .wrapper {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .row, .row-list {
+        gap: 12px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .col-7 .field, .col-6 .field, .col-5 .field,
+    .col-4 .field, .col-3 .field, .col-2 .field {
+        width: 100% !important;
+    }
+    .field form { width: 100%; gap: 8px; }
+    .field button, .field form button { width: 100%; padding: 14px; }
+    .title { font-size: 1.2em; padding: 8px; }
+    .field img { width: 120px; }
+}
+
+/* Tablet (481px–1024px) */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .wrapper { width: 95%; }
+    .col-7 .field, .col-6 .field, .col-5 .field { width: 33.33%; }
+    .col-4 .field, .col-3 .field { width: 50%; }
+    .col-2 .field { width: 100%; }
+    .field button { width: 60%; }
+}
+
+@media print {
+  body * { visibility: hidden !important; }
+  #bracket, #bracket * { visibility: visible !important; }
+  #bracket { position: absolute; inset: 0; margin: 0; }
+  .navbar, form, .toolbar { display: none !important; }
+  .seed .meta { display: none !important; }  /* SOLO NOMI in stampa */
+}
