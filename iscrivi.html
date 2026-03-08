@@ -2,110 +2,140 @@
 <html lang="it">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Iscrivi Atleta</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .hint {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 4px;
-    }
 
-    .ok {
-      color: #0a8a0a;
-    }
+<meta charset="UTF-8">
 
-    .err {
-      color: #b91c1c;
-    }
-  </style>
+<title class="app-name">Gestione Gare</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
-  <div class="page">
-    <div class="wrapper">
 
-      <!-- Navbar coerente -->
-      <div class="navbar">
-        <button class="nav-btn" id="navBack">← Indietro</button>
-        <button class="nav-btn" id="navHome">Home</button>
-        <button class="nav-btn" id="navFwd">→ Avanti</button>
+<div class="page">
 
-      </div>
+<div class="wrapper">
 
-      <div class="row-list">
-        <div class="field title"><span>Iscrivi Atleta</span></div>
-      </div>
+<img class="app-logo" src="" width="120">
 
-      <form id="athForm" class="row" style="flex-wrap:wrap; gap:8px; justify-self:center; width: 80%;">
-        <div class="row col-4" style="margin:0px;">
-          <div class="field">
-            <input type="text" id="nome" name="nome" placeholder="Nome" required>
-          </div>
+<h1 class="app-name"></h1>
 
-          <div class="field">
-            <input type="text" id="cognome" name="cognome" placeholder="Cognome" required>
-          </div>
-          <div class="field">
-            <select id="sesso" name="sesso" required>
-              <option value="" disabled selected>Sesso</option>
-              <option value="M">Maschile</option>
-              <option value="F">Femminile</option>
-            </select>
-          </div>
-          <div class="field">
-            <input type="number" id="eta" name="eta" placeholder="Età" min="3" max="99" required>
-          </div>
-        </div>
+<form id="athleteForm">
 
-        <div class="row col-3" style="margin:0px;">
+<div class="row">
 
-          <div class="field">
-            <input type="number" id="peso" name="peso" placeholder="Peso (kg)" step="0.1">
-          </div>
+<label>Competizione</label>
 
-          <div class="field">
-            <select id="cintura" name="cintura" required>
-              <option value="" disabled selected>Cintura</option>
-              <option>Bianca</option>
-              <option>Gialla</option>
-              <option>Arancione</option>
-              <option>Verde</option>
-              <option>Blu</option>
-              <option>Viola</option>
-              <option>Marrone</option>
-              <option>Nera</option>
-            </select>
-          </div>
+<select name="competizione" class="competition-select"></select>
 
-          <div class="field">
-            <select id="competizione" name="competizione" required>
-              <option value="" disabled selected>Competizione</option>
-              <option>Kick-Jitsu</option>
-              <option>Lotta a Terra</option>
-              <option>Submission</option>
-              <option>Dimostrazione</option>
-              <option>Kata</option>
-              <option>Kata Kobudo</option>
-            </select>
-          </div>
-        </div>
-        <div class="field" style="flex-basis:100%; text-align:center;margin-top:20px">
-          <button type="submit">Iscrivi</button>
-        </div>
+</div>
 
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <span id="msg" class="hint"></span>
-        </div>
-      </form>
-    </div>
-  </div>
 
-  <script src="js/auth.js"></script>
-  <script src="js/iscrivi.js"></script>
-  <script src="js/nav.js"></script>
+<div class="row">
+
+<label>Peso</label>
+
+<select name="peso_categoria" class="weight-select"></select>
+
+</div>
+
+
+<div class="row">
+
+<label>Nome</label>
+
+<input type="text" name="nome" required>
+
+</div>
+
+
+<div class="row">
+
+<label>Cognome</label>
+
+<input type="text" name="cognome" required>
+
+</div>
+
+
+<button type="submit">Iscrivi atleta</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script src="../js/app.js"></script>
+
+<script>
+
+async function loadConfig(){
+
+const res = await fetch("../config_public.php");
+
+const config = await res.json();
+
+
+document.querySelectorAll(".app-logo").forEach(el=>{
+    el.src = config.brand.logo;
+});
+
+
+document.querySelectorAll(".app-name").forEach(el=>{
+    el.textContent = config.brand.name;
+});
+
+
+document.documentElement.style.setProperty("--primary", config.theme.primary);
+document.documentElement.style.setProperty("--primary-dark", config.theme.primary_dark);
+
+
+document.querySelectorAll(".competition-select").forEach(select=>{
+
+select.innerHTML="";
+
+config.competitions.forEach(c=>{
+
+const opt=document.createElement("option");
+
+opt.value=c;
+
+opt.textContent=c;
+
+select.appendChild(opt);
+
+});
+
+});
+
+
+document.querySelectorAll(".weight-select").forEach(select=>{
+
+select.innerHTML="";
+
+config.weight_classes.forEach(w=>{
+
+const opt=document.createElement("option");
+
+opt.value=w.label;
+
+opt.textContent=w.label;
+
+select.appendChild(opt);
+
+});
+
+});
+
+}
+
+loadConfig();
+
+</script>
+
 </body>
 
 </html>
