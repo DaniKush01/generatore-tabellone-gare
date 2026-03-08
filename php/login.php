@@ -1,36 +1,17 @@
 <?php
+
 require_once __DIR__ . '/session_boot.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-/* ===== WHITELABEL CONFIG ===== */
+/* ===== CONFIG ===== */
 $config = require __DIR__ . '/config/app_config.php';
-
-/* ─────────────────────────────────────────────────────────────
-   Sessione sicura
-   ───────────────────────────────────────────────────────────── */
-$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
-
-if (PHP_VERSION_ID >= 70300) {
-    session_set_cookie_params([
-        'httponly' => true,
-        'secure'   => $secure,
-        'samesite' => 'Lax',
-    ]);
-} else {
-    ini_set('session.cookie_httponly', '1');
-    if ($secure) ini_set('session.cookie_secure', '1');
-    ini_set('session.cookie_samesite', 'Lax');
-}
-
-session_start();
-
 require_once __DIR__ . '/config/db_connect.php';
 
 
-/* ─────────────────────────────────────────────────────────────
-   Utilities
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   Utility risposta JSON
+───────────────────────────────────────── */
 
 function respond($data, int $status = 200): never {
 
@@ -43,11 +24,11 @@ function respond($data, int $status = 200): never {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   1) Input credenziali (JSON o form)
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   Lettura input (JSON o form)
+───────────────────────────────────────── */
 
-$raw  = file_get_contents('php://input');
+$raw = file_get_contents('php://input');
 
 $body = json_decode($raw, true);
 
@@ -55,7 +36,7 @@ if (!is_array($body)) {
     $body = $_POST;
 }
 
-$email = trim($body['email'] ?? '');
+$email = strtolower(trim($body['email'] ?? ''));
 $pwd   = (string)($body['password'] ?? '');
 
 if ($email === '' || $pwd === '') {
@@ -68,23 +49,38 @@ if ($email === '' || $pwd === '') {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   2) Lookup utente
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   Lookup utente
+───────────────────────────────────────── */
 
-$stmt = $pdo->prepare("
-    SELECT id, email, password, ruolo, palestra
-    FROM utenti
-    WHERE email = ?
-    LIMIT 1
-");
+try {
 
-$stmt->execute([$email]);
+    $stmt = $pdo->prepare("
+        SELECT id, email, password, ruolo, palestra
+        FROM utenti
+        WHERE email = ?
+        LIMIT 1
+    ");
 
-$u = $stmt->fetch();
+    $stmt->execute([$email]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+} catch (Throwable $e) {
+
+    respond([
+        'ok' => false,
+        'error' => 'Errore database'
+    ], 500);
+
+}
 
 
-if (!$u || !password_verify($pwd, $u['password'])) {
+/* ─────────────────────────────────────────
+   Verifica password
+───────────────────────────────────────── */
+
+if (!$user || !password_verify($pwd, $user['password'])) {
 
     respond([
         'ok' => false,
@@ -94,16 +90,18 @@ if (!$u || !password_verify($pwd, $u['password'])) {
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   3) Login OK
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   Login OK
+───────────────────────────────────────── */
 
-@session_regenerate_id(true);
+session_regenerate_id(true);
 
-$_SESSION['uid']      = (int)$u['id'];
-$_SESSION['ruolo']    = $u['ruolo'] ?: 'user';
-$_SESSION['palestra'] = $u['palestra'] ?: '';
+$_SESSION['uid']      = (int)$user['id'];
+$_SESSION['ruolo']    = $user['ruolo'] ?: 'user';
+$_SESSION['palestra'] = $user['palestra'] ?: '';
 
+
+/* aggiorna ultimo login */
 
 try {
 
@@ -111,32 +109,28 @@ try {
         UPDATE utenti
         SET last_log = NOW()
         WHERE id = ?
-    ")->execute([$u['id']]);
+    ")->execute([$user['id']]);
 
 } catch (Throwable $e) {
-
-    // non bloccare il login
-
+    // non bloccare login
 }
 
 
-/* ─────────────────────────────────────────────────────────────
-   4) Risposta al client
-   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   Risposta al frontend
+───────────────────────────────────────── */
 
 respond([
 
-    'ok'       => true,
+    'ok' => true,
 
-    'uid'      => (int)$u['id'],
-    'id'       => (int)$u['id'],
+    'id'       => (int)$user['id'],
+    'uid'      => (int)$user['id'],
 
-    'email'    => $u['email'],
-    'palestra' => $u['palestra'],
+    'email'    => $user['email'],
+    'palestra' => $user['palestra'],
 
-    'role'     => $u['ruolo'],
-
-    /* dati utili al frontend */
+    'role'     => $user['ruolo'],
 
     'brand' => [
         'name' => $config['brand']['name'],
@@ -144,7 +138,7 @@ respond([
     ],
 
     'theme' => [
-        'primary' => $config['theme']['primary'],
+        'primary'      => $config['theme']['primary'],
         'primary_dark' => $config['theme']['primary_dark']
     ]
 
