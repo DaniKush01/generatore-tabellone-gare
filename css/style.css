@@ -3,6 +3,21 @@
     src: url('../GestioneFirma/src/fonts/Montserrat-regular/Montserrat-Regular.ttf') format('truetype');
 }
 
+/* =========================
+   TEMA COLORI (WHITELABEL)
+   ========================= */
+
+:root {
+    --color-primary: #f2c200;        /* giallo principale */
+    --color-primary-dark: #d4a800;   /* giallo hover */
+    --color-bg: #ffffff;
+    --color-text: #000000;
+    --color-border: #e5e7eb;
+    --color-page: #b0bfd6;
+}
+
+/* ========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,17 +28,11 @@
     -webkit-overflow-scrolling: touch;
 }
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('../.././GestioneFirma/src/fonts/Montserrat-regular/Montserrat-Regular.ttf') format('truetype');
-}
-
 body {
-    background-color: #b0bfd6;
+    background-color: var(--color-page);
     margin: 0px;
     font-family: 'Montserrat';
 }
-
 
 .page {
     display: inline-block;
@@ -36,30 +45,35 @@ body {
 .wrapper {
     display: inline-block;
     width: 1240px;
-    color: #000;
-    background-color: #FFF;
+    color: var(--color-text);
+    background-color: var(--color-bg);
     border-radius: 10px;
     box-shadow: 0px 0px 41px 0px rgb(99 109 124);
     width: 90%;
 }
 
+/* =========================
+   NAVBAR
+   ========================= */
+
 .navbar {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #fff;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
     padding: 8px 12px;
     display: flex;
     gap: 8px;
     align-items: center;
     justify-content: flex-start;
 }
+
 .nav-btn {
     width: 100%;
-    border: 1px solid #bf191b;
-    background: #bf191b;
-    color: #fff;
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: #000;
     font-weight: 600;
     border-radius: 6px;
     padding: 8px 12px;
@@ -67,8 +81,12 @@ body {
 }
 
 .nav-btn:hover {
-    filter: brightness(1.05);
+    background: var(--color-primary-dark);
 }
+
+/* =========================
+   ROWS
+   ========================= */
 
 .row,
 .row-table,
@@ -122,7 +140,6 @@ body {
     cursor: default;
 }
 
-
 .row-content:hover {
     cursor: pointer;
     background-color: rgba(128, 128, 128, 0.4);
@@ -137,37 +154,25 @@ body {
     width: 100%;
 }
 
-.col-7 .field {
-    width: 14%;
-}
+/* =========================
+   GRID COLONNE
+   ========================= */
 
-.col-6 .field {
-    width: 16%;
-}
-
-.col-5 .field {
-    width: 20%;
-}
-
-.col-4 .field {
-    width: 25%;
-}
-
-.col-3 .field {
-    width: 33.3%;
-}
-
-.col-2 .field {
-    width: 50%;
-}
-
-.col-1 .field {
-    width: 100%;
-}
+.col-7 .field { width: 14%; }
+.col-6 .field { width: 16%; }
+.col-5 .field { width: 20%; }
+.col-4 .field { width: 25%; }
+.col-3 .field { width: 33.3%; }
+.col-2 .field { width: 50%; }
+.col-1 .field { width: 100%; }
 
 .field img {
     width: 200px;
 }
+
+/* =========================
+   FORM
+   ========================= */
 
 .field form {
     width: 60%;
@@ -189,12 +194,15 @@ form textarea,
 .field form input[type="number"],
 .field form input[type="password"],
 .field form button,
-.field form select, form select, .toolbar select, .toolbar input,
+.field form select,
+form select,
+.toolbar select,
+.toolbar input,
 .field button {
     width: 100%;
     border-radius: 5px;
     padding: 5px;
-    border: solid 1px #bf191b;
+    border: solid 1px var(--color-primary);
 }
 
 .field form input[type="checkbox"] {
@@ -216,33 +224,37 @@ form textarea,
     width: 100%;
 }
 
+/* =========================
+   BUTTONS
+   ========================= */
+
 .field form button,
 .field button {
     text-transform: uppercase;
     cursor: pointer;
-    background-color: #bf191b;
+    background-color: var(--color-primary);
     font-weight: bold;
-    color: #f0f0f0;
+    color: #000;
     border-radius: 5px;
     padding: 5px;
-    border: solid 1px #bf191b;
+    border: solid 1px var(--color-primary);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .field form button:hover,
 .field button:hover {
     transform: translateX(-8px) translateY(8px);
-    box-shadow: 8px -8px #b0bfd6;
+    box-shadow: 8px -8px var(--color-page);
 }
 
 .field form button:not(:hover),
 .field button:not(:hover) {
     transform: translateX(0) translateY(0);
-    box-shadow: 0 0 #b0bfd6;
+    box-shadow: 0 0 var(--color-page);
 }
 
 .field form a {
-    color: #bf191b;
+    color: var(--color-primary);
     text-decoration: none;
 }
 
@@ -251,11 +263,15 @@ form textarea,
     width: 50%;
 }
 
+/* =========================
+   TITLES
+   ========================= */
+
 .title{
-    background-color: #bf191b;
+    background-color: var(--color-primary);
     padding: 10px;
     font-size: 1.8em;
-    color: white;
+    color: black;
     border-radius: 10px;
     text-transform: uppercase;
 }
@@ -263,11 +279,11 @@ form textarea,
 .title-tab{
     font-weight: bold;
     text-transform: uppercase;
-    color: #bf191b;
+    color: var(--color-primary);
 }
 
 #athleteList .row-list{
-    border-top: 1px #bf191b solid;
+    border-top: 1px var(--color-primary) solid;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 0px;
@@ -283,45 +299,103 @@ form textarea,
 
 .seed .meta { opacity: .7; }
 
+/* =========================
+   RESPONSIVE
+   ========================= */
 
-/* ==== RESPONSIVE ==== */
-/* Mobile (≤480px) */
+/* Mobile */
+
 @media (max-width: 480px) {
+
     .page { padding: 6px 0; }
+
     .wrapper {
         width: 100%;
         border-radius: 0;
         box-shadow: none;
     }
+
     .row, .row-list {
         gap: 12px;
         margin-top: 15px;
         margin-bottom: 15px;
         flex-wrap: wrap;
     }
-    .col-7 .field, .col-6 .field, .col-5 .field,
-    .col-4 .field, .col-3 .field, .col-2 .field {
+
+    .col-7 .field,
+    .col-6 .field,
+    .col-5 .field,
+    .col-4 .field,
+    .col-3 .field,
+    .col-2 .field {
         width: 100% !important;
     }
+
     .field form { width: 100%; gap: 8px; }
-    .field button, .field form button { width: 100%; padding: 14px; }
-    .title { font-size: 1.2em; padding: 8px; }
+
+    .field button,
+    .field form button {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .title {
+        font-size: 1.2em;
+        padding: 8px;
+    }
+
     .field img { width: 120px; }
 }
 
-/* Tablet (481px–1024px) */
+/* Tablet */
+
 @media (min-width: 481px) and (max-width: 1024px) {
+
     .wrapper { width: 95%; }
-    .col-7 .field, .col-6 .field, .col-5 .field { width: 33.33%; }
-    .col-4 .field, .col-3 .field { width: 50%; }
-    .col-2 .field { width: 100%; }
+
+    .col-7 .field,
+    .col-6 .field,
+    .col-5 .field {
+        width: 33.33%;
+    }
+
+    .col-4 .field,
+    .col-3 .field {
+        width: 50%;
+    }
+
+    .col-2 .field {
+        width: 100%;
+    }
+
     .field button { width: 60%; }
 }
 
+/* =========================
+   PRINT
+   ========================= */
+
 @media print {
+
   body * { visibility: hidden !important; }
-  #bracket, #bracket * { visibility: visible !important; }
-  #bracket { position: absolute; inset: 0; margin: 0; }
-  .navbar, form, .toolbar { display: none !important; }
-  .seed .meta { display: none !important; }  /* SOLO NOMI in stampa */
+
+  #bracket,
+  #bracket * { visibility: visible !important; }
+
+  #bracket {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+
+  .navbar,
+  form,
+  .toolbar {
+      display: none !important;
+  }
+
+  .seed .meta {
+      display: none !important;
+  }
+
 }
