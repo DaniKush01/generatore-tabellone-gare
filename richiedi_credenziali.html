@@ -1,64 +1,253 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Richiesta credenziali</title>
-  <link rel="stylesheet" href="/gestione_gare/css/style.css" />
-  <style>
-    .wrapper { max-width: 920px; margin: 0 auto; }
-    .row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-    .row .field { min-width:260px; flex:1; }
-    .status { text-align:center; font-weight:600; margin:8px 0; }
-    .status.error { color:#c00; }
-    .status.ok { color:#0a8a0a; }
-  </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title class="app-name">Richiesta credenziali</title>
+
+<link rel="stylesheet" href="/gestione_gare/css/style.css">
+
+<style>
+
+.wrapper{
+max-width:920px;
+margin:0 auto;
+}
+
+.row{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+justify-content:center;
+}
+
+.row .field{
+min-width:260px;
+flex:1;
+}
+
+.status{
+text-align:center;
+font-weight:600;
+margin:8px 0;
+}
+
+.status.error{color:#c00;}
+.status.ok{color:#0a8a0a;}
+
+</style>
+
 </head>
+
+
 <body>
-  <div class="page">
-    <div class="wrapper">
-      <div class="row-list">
-        <div class="field title"><span>Richiedi credenziali</span></div>
-      </div>
 
-      <form id="reqForm" class="row">
-        <div class="field"><input name="palestra" placeholder="Palestra *" required /></div>
-        <div class="field"><input name="referente" placeholder="Referente *" required /></div>
-        <div class="field"><input name="email" type="email" placeholder="Email *" required /></div>
-        <div class="field"><input name="telefono" placeholder="Telefono" /></div>
-        <div class="field" style="flex-basis:100%;"><textarea name="messaggio" placeholder="Messaggio" rows="5"></textarea></div>
+<div class="page">
 
-        <!-- honeypot anti-bot -->
-        <div style="display:none;"><input name="website" tabindex="-1" autocomplete="off" /></div>
+<div class="wrapper">
 
-        <div class="field" style="flex-basis:100%; text-align:center;">
-          <button type="submit">Invia richiesta</button>
-        </div>
-      </form>
 
-      <div id="status" class="status"></div>
-    </div>
-  </div>
+<!-- LOGO -->
 
-  <script>
-  document.getElementById('reqForm').addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const status = document.getElementById('status');
-    status.className = 'status'; status.textContent = 'Invio in corso…';
+<div class="row-list">
 
-    const fd = new FormData(e.target);
-    try {
-      const res = await fetch('/gestione_gare/request_account.php', { method:'POST', body:fd });
-      const out = await res.json();
-      if(!res.ok || out.error) throw new Error(out.error || 'Errore invio');
-      status.className = 'status ok';
-      status.textContent = 'Richiesta inviata. Riceverai una risposta al più presto.';
-      e.target.reset();
-    } catch(err){
-      status.className = 'status error';
-      status.textContent = err.message;
-    }
-  });
-  </script>
+<div class="field" style="text-align:center">
+
+<img class="app-logo" src="" style="max-width:140px">
+
+</div>
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span class="app-name">Richiedi credenziali</span>
+
+</div>
+
+</div>
+
+
+<form id="reqForm" class="row">
+
+<div class="field">
+
+<input name="palestra"
+placeholder="Palestra *"
+required>
+
+</div>
+
+<div class="field">
+
+<input name="referente"
+placeholder="Referente *"
+required>
+
+</div>
+
+<div class="field">
+
+<input name="email"
+type="email"
+placeholder="Email *"
+required>
+
+</div>
+
+<div class="field">
+
+<input name="telefono"
+placeholder="Telefono">
+
+</div>
+
+<div class="field" style="flex-basis:100%;">
+
+<textarea name="messaggio"
+placeholder="Messaggio"
+rows="5"></textarea>
+
+</div>
+
+
+<!-- honeypot anti-bot -->
+
+<div style="display:none">
+
+<input name="website"
+tabindex="-1"
+autocomplete="off">
+
+</div>
+
+
+<div class="field"
+style="flex-basis:100%;text-align:center">
+
+<button type="submit">
+
+Invia richiesta
+
+</button>
+
+</div>
+
+</form>
+
+
+<div id="status" class="status"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+document.getElementById('reqForm').addEventListener('submit', async (e)=>{
+
+e.preventDefault();
+
+const status=document.getElementById('status');
+
+status.className='status';
+
+status.textContent='Invio in corso…';
+
+const fd=new FormData(e.target);
+
+try{
+
+const res=await fetch('/gestione_gare/request_account.php',{
+method:'POST',
+body:fd
+});
+
+const out=await res.json();
+
+if(!res.ok||out.error)
+throw new Error(out.error||'Errore invio');
+
+status.className='status ok';
+
+status.textContent='Richiesta inviata. Riceverai una risposta al più presto.';
+
+e.target.reset();
+
+}catch(err){
+
+status.className='status error';
+
+status.textContent=err.message;
+
+}
+
+});
+
+</script>
+
+
+<!-- CONFIG WHITELABEL -->
+
+<script>
+
+async function loadConfig(){
+
+try{
+
+const res=await fetch('/gestione_gare/config_public.php');
+
+const config=await res.json();
+
+
+/* LOGO */
+
+document.querySelectorAll(".app-logo").forEach(el=>{
+el.src=config.brand.logo;
+});
+
+
+/* BRAND */
+
+document.querySelectorAll(".app-name").forEach(el=>{
+el.textContent=config.brand.name;
+});
+
+
+/* COLORI */
+
+document.documentElement.style.setProperty(
+"--primary",
+config.theme.primary
+);
+
+document.documentElement.style.setProperty(
+"--primary-dark",
+config.theme.primary_dark
+);
+
+}catch(e){
+
+console.warn("config non caricata",e);
+
+}
+
+}
+
+loadConfig();
+
+</script>
+
+
 </body>
 </html>
