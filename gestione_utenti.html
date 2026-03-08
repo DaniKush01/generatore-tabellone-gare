@@ -2,93 +2,250 @@
 <html lang="it">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gestione Utenti</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .row-list.col-6 .field {
-      width: calc(100% / 6);
-    }
 
-    .hidden {
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title class="app-name">Gestione Utenti</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+.row-list.col-6 .field {
+width: calc(100% / 6);
+}
+
+.hidden {
+display: none;
+}
+
+</style>
+
 </head>
 
+
 <body>
-  <div class="page">
-    <div class="wrapper">
 
-      <!-- Navbar coerente -->
-      <div class="navbar">
-        <button class="nav-btn" id="navBack">← Indietro</button>
-        <button class="nav-btn" id="navHome">Home</button>
-        <button class="nav-btn" id="navFwd">→ Avanti</button>
-      </div>
+<div class="page">
 
-      <div class="row-list">
-        <div class="field title"><span>Gestione Utenti</span></div>
-      </div>
+<div class="wrapper">
 
-      <!-- intestazioni -->
-      <div class="row-list col-6">
-        <div class="field title-tab">ID</div>
-        <div class="field title-tab">Email</div>
-        <div class="field title-tab">Palestra</div>
-        <div class="field title-tab">Ruolo</div>
-        <div class="field title-tab">Ultimo accesso</div>
-        <div class="field title-tab">Azioni</div>
-      </div>
+<!-- NAVBAR -->
 
-      <!-- lista -->
-      <div id="usersList" class="row-list col-6"></div>
+<div class="navbar">
 
-      <!-- form -->
-      <div class="row-list">
-        <div class="field title"><span id="formTitle">Crea nuovo utente</span></div>
-      </div>
-      <form id="userForm" class="row"
-        style="flex-wrap:wrap;gap:8px;justify-content:center;width: 80%; justify-self: center; ">
-        <input type="hidden" id="userId" name="id">
-        <div class="row col-2">
-          <div class="field">
-            <input type="email" id="email" name="email" placeholder="Email" required>
-          </div>
-          <div class="field">
-            <input type="text" id="password" name="password" placeholder="Password (lascia vuoto per non cambiare)">
-          </div>
-        </div>
-        <div class="row col-2">
-          <div class="field">
-            <input type="text" id="palestra" name="palestra" placeholder="Palestra" required>
-          </div>
-          <div class="field">
-            <select id="ruolo" name="ruolo">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-        </div>
-        <div class="row col-2">
-          <div class="field" style="flex-basis:100%;text-align:center;">
-            <button type="submit">Salva</button>
-          </div>
-          <div class="field" style="flex-basis:100%;text-align:center;">
-            <button type="button" id="cancelBtn" class="hidden">Annulla</button>
-          </div>
-        </div>
+<button class="nav-btn" id="navBack">← Indietro</button>
 
-      </form>
+<button class="nav-btn" id="navHome">Home</button>
 
-      <p id="msgUsers" class="msg-errore"></p>
-    </div>
-  </div>
+<button class="nav-btn" id="navFwd">→ Avanti</button>
 
-  <script src="js/auth.js"></script>
-  <script src="js/utenti.js"></script>
-  <script src="js/nav.js"></script>
+</div>
+
+
+<!-- LOGO -->
+
+<div class="row-list">
+
+<div class="field" style="text-align:center">
+
+<img class="app-logo" src="" alt="logo" style="max-width:140px">
+
+</div>
+
+</div>
+
+
+<!-- TITLE -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span class="app-name">Gestione Utenti</span>
+
+</div>
+
+</div>
+
+
+<!-- HEADER LIST -->
+
+<div class="row-list col-6">
+
+<div class="field title-tab">ID</div>
+
+<div class="field title-tab">Email</div>
+
+<div class="field title-tab">Palestra</div>
+
+<div class="field title-tab">Ruolo</div>
+
+<div class="field title-tab">Ultimo accesso</div>
+
+<div class="field title-tab">Azioni</div>
+
+</div>
+
+
+<!-- USERS LIST -->
+
+<div id="usersList" class="row-list col-6"></div>
+
+
+<!-- FORM TITLE -->
+
+<div class="row-list">
+
+<div class="field title">
+
+<span id="formTitle">Crea nuovo utente</span>
+
+</div>
+
+</div>
+
+
+<!-- FORM -->
+
+<form id="userForm" class="row"
+style="flex-wrap:wrap;gap:8px;justify-content:center;width:80%;justify-self:center;">
+
+<input type="hidden" id="userId" name="id">
+
+
+<div class="row col-2">
+
+<div class="field">
+
+<input type="email" id="email" name="email" placeholder="Email" required>
+
+</div>
+
+<div class="field">
+
+<input type="text" id="password" name="password"
+placeholder="Password (lascia vuoto per non cambiare)">
+
+</div>
+
+</div>
+
+
+<div class="row col-2">
+
+<div class="field">
+
+<input type="text" id="palestra" name="palestra" placeholder="Palestra" required>
+
+</div>
+
+<div class="field">
+
+<select id="ruolo" name="ruolo">
+
+<option value="user">User</option>
+
+<option value="admin">Admin</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="row col-2">
+
+<div class="field" style="flex-basis:100%;text-align:center;">
+
+<button type="submit">Salva</button>
+
+</div>
+
+<div class="field" style="flex-basis:100%;text-align:center;">
+
+<button type="button" id="cancelBtn" class="hidden">Annulla</button>
+
+</div>
+
+</div>
+
+</form>
+
+
+<p id="msgUsers" class="msg-errore"></p>
+
+</div>
+
+</div>
+
+
+
+<!-- JS ORIGINALI -->
+
+<script src="js/auth.js"></script>
+
+<script src="js/utenti.js"></script>
+
+<script src="js/nav.js"></script>
+
+
+
+<!-- CONFIG WHITELABEL -->
+
+<script>
+
+async function loadConfig(){
+
+try{
+
+const res = await fetch("../config_public.php");
+
+const config = await res.json();
+
+
+/* LOGO */
+
+document.querySelectorAll(".app-logo").forEach(el=>{
+el.src = config.brand.logo;
+});
+
+
+/* BRAND NAME */
+
+document.querySelectorAll(".app-name").forEach(el=>{
+el.textContent = config.brand.name;
+});
+
+
+/* COLORI */
+
+document.documentElement.style.setProperty(
+"--primary",
+config.theme.primary
+);
+
+document.documentElement.style.setProperty(
+"--primary-dark",
+config.theme.primary_dark
+);
+
+}catch(e){
+
+console.warn("config non caricata",e);
+
+}
+
+}
+
+loadConfig();
+
+</script>
+
+
 </body>
 
 </html>
