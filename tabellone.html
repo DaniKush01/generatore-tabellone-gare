@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabellone Match</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* —— Bracket layout —— */
+    .bracket {
+      --rounds: 1;
+      display: grid;
+      grid-template-columns: repeat(var(--rounds), minmax(200px, 1fr));
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px;
+    }
+
+    .round {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 10px;
+      page-break-inside: avoid;
+    }
+
+    .round-title {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .match {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin: 10px 0;
+      overflow: hidden;
+      page-break-inside: avoid;
+      background: #fff;
+    }
+
+    .seed {
+      padding: 8px 10px;
+      border-bottom: 1px dashed #e5e7eb;
+      min-height: 34px;
+      /* spazio per scrivere a mano */
+    }
+
+    .seed:last-child {
+      border-bottom: none;
+    }
+
+    .placeholder {
+      color: #9ca3af;
+    }
+
+    .bye {
+      color: #b45309;
+      font-style: italic;
+    }
+
+    /* intestazione "storica" a 3 colonne tenuta nascosta */
+    #headRow,
+    #matchList {
+      display: none !important;
+    }
+
+    @media print {
+
+      .navbar,
+      #filterForm {
+        display: none !important;
+      }
+
+      .wrapper {
+        box-shadow: none;
+        border: none;
+      }
+
+      .round {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="wrapper">
+
+      <div class="navbar">
+        <button class="nav-btn" id="navBack">← Indietro</button>
+        <button class="nav-btn" id="navHome">Home</button>
+        <button class="nav-btn" id="navFwd">→ Avanti</button>
+      </div>
+
+      <div class="row-list">
+        <div class="field title"><span>Genera tabellone</span></div>
+      </div>
+
+      <div class="row" style="justify-content: center;">
+        <div class="field" style="justify-items: center;">
+          <!-- ======== FILTRI TABELLONE ======== -->
+          <form id="filterForm" class="row" style="flex-wrap:wrap; gap:8px; justify-content:center;">
+
+            <!-- Competizione -->
+            <div class="field">
+              <select id="competizione" name="competizione" required>
+                <option value="" disabled selected>Seleziona competizione</option>
+                <option value="Kick-Jitsu">Kick-Jitsu</option>
+                <option value="Lotta a Terra">Lotta a Terra</option>
+                <option value="Submission">Submission</option>
+                <option value="Dimostrazione">Dimostrazione</option>
+                <option value="Kata">Kata</option>
+                <option value="Kata Kobudo">Kata Kobudo</option>
+              </select>
+            </div>
+
+            <!-- Sesso -->
+            <div class="field">
+              <select id="sesso" name="sesso" required>
+                <option value="" disabled selected>Sesso</option>
+                <option value="M">Maschile</option>
+                <option value="F">Femminile</option>
+              </select>
+            </div>
+
+            <!-- Età -->
+            <div class="field">
+              <select id="eta_range" name="eta_range" required>
+                <option value="" disabled selected>Fascia d'età</option>
+                <option value="0-17">0–17</option>
+                <option value="18-99">18+</option>
+              </select>
+            </div>
+
+            <!-- SOLO SELECT categoria peso (JS popola i range) -->
+            <div class="field">
+              <select id="pesoPreset">
+                <option value="">Categoria peso</option>
+              </select>
+            </div>
+
+            <!-- Hidden inviati al backend -->
+            <input type="hidden" id="peso_min" name="peso_min">
+            <input type="hidden" id="peso_max" name="peso_max">
+
+            <!-- Submit -->
+            <div class="field" style="flex-basis:100%; text-align:center;">
+              <button type="submit">Genera tabellone</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- sotto al form, prima del tabellone -->
+      <div id="bracketToolbar" class="toolbar" style="display:none; justify-content:center;">
+        <div class="row" style="justify-content: center;">
+          <div class="field" style="width: 40%;">
+            <button id="btnPrintBracket" style="width: 100%; padding: 10px;">Stampa tabellone</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- contenitore del tabellone (se non l’hai già) -->
+      <div id="bracket" class="bracket" style="display:none;"></div>
+
+      <p id="msg" class="msg-errore"></p>
+    </div>
+  </div>
+
+  <script src="js/admin_only.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/tabellone.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+
+</html>

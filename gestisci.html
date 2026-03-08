@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestione Atleti</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .toolbar {
+      justify-self: center;
+      width: 80%;
+      display: flex;
+      gap: 8px;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      margin: 8px 0;
+    }
+    .badge-paid { color:#0a8a0a; font-weight:700; }
+    .badge-unpaid { color:#c00; font-weight:700; }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.45);
+      display:none; align-items:center; justify-content:center; z-index:1000;
+    }
+    .modal{
+      width:min(720px, 92vw); background:#fff; border-radius:10px; padding:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .modal header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .modal h3{ margin:0; font-size:18px; }
+    .modal .row{ display:flex; flex-wrap:wrap; gap:8px; }
+    .modal .field{ flex:1 1 160px; }
+    .modal footer{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+    .btn{ padding:8px 12px; border-radius:8px; border:1px solid #ddd; background:#f6f6f6; cursor:pointer; }
+    .btn.primary{ background:#0a84ff; color:#fff; border-color:#0a84ff; }
+    .btn.danger{ background:#bf191b; color:#fff; border-color:#bf191b; }
+    .hint{ font-size:12px; color:#6b7280; }
+    .hint.err{ color:#b91c1c; }
+    .hint.ok{ color:#0a8a0a; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <div class="navbar">
+        <button class="nav-btn" id="navBack">← Indietro</button>
+        <button class="nav-btn" id="navHome">Home</button>
+        <button class="nav-btn" id="navFwd">→ Avanti</button>
+      </div>
+
+      <div class="row-list">
+        <div class="field title">
+          <span>Atleti Iscritti | <span id="gymName"></span></span>
+        </div>
+      </div>
+
+      <!-- Toolbar filtri -->
+      <div class="toolbar">
+        <input id="q" type="text" placeholder="Cerca nome/cognome/competizione/palestra" style="min-width:260px;">
+        <select id="f_comp">
+          <option value="">Competizione (tutte)</option>
+          <option>Kick-Jitsu</option>
+          <option>Lotta a Terra</option>
+          <option>Submission</option>
+          <option>Dimostrazione</option>
+          <option>Kata</option>
+          <option>Kata Kobudo</option>
+        </select>
+        <button id="btnApply" class="nav-btn">Applica</button>
+        <button id="btnClear" class="nav-btn">Pulisci</button>
+      </div>
+
+      <!-- Intestazioni (coerenti con la riga renderizzata) -->
+      <div class="row col-11" id="headGest" style="display:none;">
+        <div class="field title-tab" style="width: 5%;">ID</div>
+        <div class="field title-tab" style="width: 10%;">Nome</div>
+        <div class="field title-tab" style="width: 10%;">Cognome</div>
+        <div class="field title-tab" style="width: 5%;">Sesso</div>
+        <div class="field title-tab" style="width: 5%;">Età</div>
+        <div class="field title-tab" style="width: 5%;">Peso</div>
+        <div class="field title-tab" style="width: 10%;">Cintura</div>
+        <div class="field title-tab" style="width: 20%;">Competizione</div>
+        <div class="field title-tab" style="width: 10%;">Pagato</div>
+        <div class="field title-tab" style="width: 20%;">Azioni</div>
+      </div>
+
+      <!-- Lista dinamica -->
+      <div id="athList" class="row-list col-11"></div>
+      <p id="athMsg" class="msg-errore"></p>
+    </div>
+  </div>
+
+  <!-- MODAL modifica atleta -->
+  <div class="modal-backdrop" id="editBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+      <header>
+        <h3 id="editTitle">Modifica atleta</h3>
+        <button class="btn" id="btnCloseModal" aria-label="Chiudi">✖</button>
+      </header>
+
+      <form id="editForm">
+        <input type="hidden" id="edit_id">
+
+        <div class="row">
+          <div class="field">
+            <label>Nome</label>
+            <input type="text" id="edit_nome" required>
+          </div>
+          <div class="field">
+            <label>Cognome</label>
+            <input type="text" id="edit_cognome" required>
+          </div>
+          <div class="field">
+            <label>Sesso</label>
+            <select id="edit_sesso" required>
+              <option value="" disabled>Seleziona</option>
+              <option value="M">Maschile</option>
+              <option value="F">Femminile</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Età</label>
+            <input type="number" id="edit_eta" min="3" max="99" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Peso (kg)</label>
+            <input type="number" id="edit_peso" step="0.1" min="0">
+            <div class="hint" id="pesoHelp">Obbligatorio solo per Kick-Jitsu, Lotta a Terra, Submission.</div>
+          </div>
+          <div class="field">
+            <label>Cintura</label>
+            <select id="edit_cintura" required>
+              <option value="" disabled>Seleziona</option>
+              <option>Bianca</option><option>Gialla</option><option>Arancione</option>
+              <option>Verde</option><option>Blu</option><option>Viola</option>
+              <option>Marrone</option><option>Nera</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Competizione</label>
+            <select id="edit_competizione" required>
+              <option value="" disabled>Seleziona</option>
+              <option>Kick-Jitsu</option>
+              <option>Lotta a Terra</option>
+              <option>Submission</option>
+              <option>Dimostrazione</option>
+              <option>Kata</option>
+              <option>Kata Kobudo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Pagato (€)</label>
+            <input type="number" id="edit_pagato" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div class="row" id="wrap_palestra" style="display:none;">
+          <div class="field" style="flex:1 1 100%;">
+            <label>Palestra (solo admin)</label>
+            <input type="text" id="edit_palestra">
+          </div>
+        </div>
+
+        <footer>
+          <span class="hint" id="editMsg"></span>
+          <button type="button" class="btn" id="btnCancel">Annulla</button>
+          <button type="submit" class="btn primary" id="btnSave">Salva</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/gestisci_atleti.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

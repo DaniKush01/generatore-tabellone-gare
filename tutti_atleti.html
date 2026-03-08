@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tutti gli Atleti (Admin)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .col-10 .field {
+      width: 10%;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 8px 0;
+    }
+
+    .toolbar .totale {
+      font-weight: 700;
+      padding: 6px 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .badge-paid {
+      color: #0a8a0a;
+      font-weight: 700;
+    }
+
+    .badge-unpaid {
+      color: #c00;
+      font-weight: 700;
+    }
+
+    @media print {
+
+      .navbar,
+      .toolbar,
+      #filterForm {
+        display: none !important;
+      }
+
+      .wrapper {
+        box-shadow: none;
+        border: none;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="wrapper">
+
+      <!-- Navbar coerente -->
+      <div class="navbar">
+        <button class="nav-btn" id="navBack">← Indietro</button>
+        <button class="nav-btn" id="navHome">Home</button>
+        <button class="nav-btn" id="navFwd">→ Avanti</button>
+      </div>
+
+      <div class="row-list">
+        <div class="field title"><span>Tutti gli Atleti (Admin)</span></div>
+      </div>
+
+      <!-- FILTRI -->
+      <form id="filterForm" class="row" style="flex-wrap:wrap; justify-content:center;width: 80%;justify-self:center;">
+        <div class="row col-2" style="margin:0px;">
+          <div class="field">
+            <input id="q" type="text" placeholder="Cerca (nome, cognome, palestra, competizione, cintura…)" />
+          </div>
+          <div class="field"><input id="f_palestra" type="text" placeholder="Palestra" /></div>
+        </div>
+
+        <div class="row col-3" style="margin:0px;">
+          <div class="field">
+            <select id="f_sesso">
+              <option value="">Sesso (tutti)</option>
+              <option value="M">M</option>
+              <option value="F">F</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <select id="f_eta_group" title="Fascia età">
+              <option value="">Età (tutte)</option>
+              <option value="u18">0–17</option>
+              <option value="18plus">18+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <select id="f_peso_cat" title="Categoria peso">
+              <option value="">Peso (tutti)</option>
+              <option value="le40">≤ 40</option>
+              <option value="41-50">41–50</option>
+              <option value="51-60">51–60</option>
+              <option value="61-70">61–70</option>
+              <option value="71-80">71–80</option>
+              <option value="81-90">81–90</option>
+              <option value="ge90">≥ 90</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row col-3" style="margin:0px;">
+          <div class="field">
+            <select id="f_cintura">
+              <option value="">Cintura (tutte)</option>
+              <option>Bianca</option>
+              <option>Gialla</option>
+              <option>Arancione</option>
+              <option>Verde</option>
+              <option>Blu</option>
+              <option>Viola</option>
+              <option>Marrone</option>
+              <option>Nera</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <select id="f_comp">
+              <option value="">Competizione (tutte)</option>
+              <option>Kick-Jitsu</option>
+              <option>Lotta a Terra</option>
+              <option>Submission</option>
+              <option>Dimostrazione</option>
+              <option>Kata</option>
+              <option>Kata Kobudo</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <select id="f_pagato">
+              <option value="">Pagato (tutti)</option>
+              <option value="1">Pagato</option>
+              <option value="0">Non pagato</option>
+            </select>
+          </div>
+        </div>
+        <div class="row col-3" style="margin: 0px;">
+          <div class="field">
+          </div>
+          <div class="field"><button type="submit" style="width: 100%; padding: 10px;">Applica filtri</button></div>
+          <div class="field">
+          </div>
+        </div>
+      </form>
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="row col-4" style="margin: 0px; justify-content: center;">
+          <div class="field">
+            <button id="btnCsv" style="padding: 10px;">Esporta CSV</button>
+          </div>
+          <div class="field">
+            <button id="btnPrint" style="padding: 10px;">Stampa</button>
+          </div>
+          <div class="field">
+            <span class="totale">Totale corrente: <span id="totaleVal">€ 0,00</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- intestazione -->
+      <div class="row-list col-10" id="headAll" style="display:none;">
+        <div class="field title-tab" style="width: 10%;"><span>Nome</span></div>
+        <div class="field title-tab" style="width: 10%;"><span>Cognome</span></div>
+        <div class="field title-tab" style="width: 5%;"><span>Sesso</span></div>
+        <div class="field title-tab" style="width: 5%;"><span>Età</span></div>
+        <div class="field title-tab" style="width: 10%;"><span>Peso</span></div>
+        <div class="field title-tab" style="width: 10%;"><span>Cintura</span></div>
+        <div class="field title-tab" style="width: 20%;"><span>Competizione</span></div>
+        <div class="field title-tab" style="width: 20%;"><span>Palestra</span></div>
+        <div class="field title-tab" style="width: 10%;"><span>Pagato</span></div>
+      </div>
+
+      <div id="listAll" class="row-list col-10"></div>
+      <div id="msg" class="row-list">
+        <div class="field" style="width:100%; text-align:center;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/tutti_atleti.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+
+</html>

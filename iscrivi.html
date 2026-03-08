@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iscrivi Atleta</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hint {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .ok {
+      color: #0a8a0a;
+    }
+
+    .err {
+      color: #b91c1c;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="wrapper">
+
+      <!-- Navbar coerente -->
+      <div class="navbar">
+        <button class="nav-btn" id="navBack">← Indietro</button>
+        <button class="nav-btn" id="navHome">Home</button>
+        <button class="nav-btn" id="navFwd">→ Avanti</button>
+
+      </div>
+
+      <div class="row-list">
+        <div class="field title"><span>Iscrivi Atleta</span></div>
+      </div>
+
+      <form id="athForm" class="row" style="flex-wrap:wrap; gap:8px; justify-self:center; width: 80%;">
+        <div class="row col-4" style="margin:0px;">
+          <div class="field">
+            <input type="text" id="nome" name="nome" placeholder="Nome" required>
+          </div>
+
+          <div class="field">
+            <input type="text" id="cognome" name="cognome" placeholder="Cognome" required>
+          </div>
+          <div class="field">
+            <select id="sesso" name="sesso" required>
+              <option value="" disabled selected>Sesso</option>
+              <option value="M">Maschile</option>
+              <option value="F">Femminile</option>
+            </select>
+          </div>
+          <div class="field">
+            <input type="number" id="eta" name="eta" placeholder="Età" min="3" max="99" required>
+          </div>
+        </div>
+
+        <div class="row col-3" style="margin:0px;">
+
+          <div class="field">
+            <input type="number" id="peso" name="peso" placeholder="Peso (kg)" step="0.1">
+          </div>
+
+          <div class="field">
+            <select id="cintura" name="cintura" required>
+              <option value="" disabled selected>Cintura</option>
+              <option>Bianca</option>
+              <option>Gialla</option>
+              <option>Arancione</option>
+              <option>Verde</option>
+              <option>Blu</option>
+              <option>Viola</option>
+              <option>Marrone</option>
+              <option>Nera</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <select id="competizione" name="competizione" required>
+              <option value="" disabled selected>Competizione</option>
+              <option>Kick-Jitsu</option>
+              <option>Lotta a Terra</option>
+              <option>Submission</option>
+              <option>Dimostrazione</option>
+              <option>Kata</option>
+              <option>Kata Kobudo</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="flex-basis:100%; text-align:center;margin-top:20px">
+          <button type="submit">Iscrivi</button>
+        </div>
+
+        <div class="field" style="flex-basis:100%; text-align:center;">
+          <span id="msg" class="hint"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/iscrivi.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+
+</html>
