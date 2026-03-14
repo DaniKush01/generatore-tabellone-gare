@@ -21,37 +21,55 @@
     .msg { text-align: center; font-weight: 600; margin-top: 6px; }
     .msg.ok { color:#0a8a0a; } .msg.err { color:#c00; }
 
-    /* link testuale stile bottone/link */
     .link-btn {
-      background: none; border: none; color: #bf191b; cursor: pointer; font: inherit; padding: 0;
+      background: none;
+      border: none;
+      color: #bf191b;
+      cursor: pointer;
+      font: inherit;
+      padding: 0;
       text-decoration: underline;
     }
 
-    /* >>> Font di inserimento della TEXTAREA (e placeholder) <<< */
     textarea[name="messaggio"] {
       font-family: var(--ui-font);
       font-size: 16px;
       line-height: 1.5;
       letter-spacing: .2px;
     }
+
     textarea[name="messaggio"]::placeholder {
       font-family: var(--ui-font);
       opacity: .7;
     }
+
+    /* logo login */
+    #logoLogin{
+      max-width:200px;
+      display:block;
+      margin:auto;
+    }
+
   </style>
 </head>
 
 <body>
+
   <div class="page">
     <div class="wrapper">
+
       <div class="row col-2">
+
         <div class="field">
-          <img id="logoLogin" src="" alt="Logo" />
+          <img id="logoLogin" src="" alt="Logo">
         </div>
 
         <div class="field">
+
           <form id="loginForm">
+
             <input type="text" id="username" name="username" placeholder="Inserire Username" required>
+
             <input type="password" id="password" name="password" placeholder="Inserire Password" required>
 
             <div>
@@ -60,77 +78,116 @@
             </div>
 
             <button id="login_button" type="submit">Accedi</button>
+
             <p id="login_error" style="color:#ff0000; display:none;"></p>
 
-            <!-- Link Richiedi Credenziali nello stesso paragrafo -->
             <p style="text-align:center; margin-top:8px;">
               Non hai un account?
               <a href="#" id="btnRichCred" class="link-btn">Richiedi credenziali</a>
             </p>
+
           </form>
+
         </div>
+
       </div>
     </div>
   </div>
 
+
   <!-- Modale Richiesta Credenziali -->
   <div id="reqModal" class="modal" aria-hidden="true">
+
     <div class="modal-backdrop" id="reqBackdrop"></div>
+
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="reqTitle">
+
       <div class="row">
         <div class="field">
           <h3 id="reqTitle" style="margin:0 0 8px;">Richiedi credenziali</h3>
         </div>
       </div>
 
-      <form id="reqForm" class="row" style="margin-top: 0px; flex-wrap: wrap;">
+      <form id="reqForm" class="row" style="margin-top:0px; flex-wrap:wrap;">
+
         <div class="row col-2" style="margin:0px;">
           <div class="field">
-            <input type="text" name="palestra" placeholder="Palestra *" required />
+            <input type="text" name="palestra" placeholder="Palestra *" required>
           </div>
+
           <div class="field">
-            <input type="text" name="referente" placeholder="Referente *" required />
+            <input type="text" name="referente" placeholder="Referente *" required>
           </div>
         </div>
+
         <div class="row col-2" style="margin:0px;">
           <div class="field">
-            <input type="email" name="email" placeholder="Email *" required />
+            <input type="email" name="email" placeholder="Email *" required>
           </div>
+
           <div class="field">
-            <input type="tel" name="telefono" placeholder="Telefono" />
+            <input type="tel" name="telefono" placeholder="Telefono">
           </div>
         </div>
+
         <div class="row" style="margin:0px;">
-          <div class="field" style="width: 100%;">
+          <div class="field" style="width:100%;">
             <textarea name="messaggio" placeholder="Messaggio" rows="4"></textarea>
           </div>
         </div>
 
-        <!-- honeypot anti-bot -->
         <div style="display:none;">
-          <input name="website" tabindex="-1" autocomplete="off" />
+          <input name="website" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="row col-2" style="margin:0px;">
           <div class="field">
             <button type="button" id="reqCancel">Annulla</button>
           </div>
+
           <div class="field" style="text-align:right;">
             <button type="submit" id="reqSubmit">Invia richiesta</button>
           </div>
         </div>
 
         <div id="reqMsg" class="msg" aria-live="polite"></div>
+
       </form>
+
     </div>
+
   </div>
 
-  <!-- Script login esistente -->
+
+  <!-- LOGIN SCRIPT -->
   <script src="js/login.js"></script>
 
-  <!-- Wiring del modale Richiedi Credenziali -->
+
+  <!-- CARICAMENTO LOGO DAL CONFIG -->
+  <script>
+
+  fetch('/gestione_gare/config/config_public.php')
+  .then(r => r.json())
+  .then(cfg => {
+
+      const logo = document.getElementById('logoLogin');
+
+      if(cfg.brand && cfg.brand.logo){
+          logo.src = cfg.brand.logo;
+      }
+
+  })
+  .catch(()=>{
+      console.warn("config_public non trovato");
+  });
+
+  </script>
+
+
+  <!-- MODALE RICHIESTA CREDENZIALI -->
   <script>
     (function initRequestCredentials() {
+
       const btnOpen  = document.getElementById('btnRichCred');
       const modal    = document.getElementById('reqModal');
       const backdrop = document.getElementById('reqBackdrop');
@@ -141,52 +198,78 @@
 
       if (!btnOpen || !modal || !form) return;
 
-      const open  = () => { modal.classList.add('show'); msg.textContent=''; msg.className='msg'; };
-      const close = () => { modal.classList.remove('show'); form.reset(); msg.textContent=''; msg.className='msg'; };
+      const open  = () => {
+        modal.classList.add('show');
+        msg.textContent='';
+        msg.className='msg';
+      };
 
-      // evita lo scroll-top del link #
-      btnOpen.addEventListener('click', (e) => { e.preventDefault(); open(); });
+      const close = () => {
+        modal.classList.remove('show');
+        form.reset();
+        msg.textContent='';
+        msg.className='msg';
+      };
+
+      btnOpen.addEventListener('click', (e)=>{
+        e.preventDefault();
+        open();
+      });
+
       backdrop.addEventListener('click', close);
       btnCancel.addEventListener('click', close);
 
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', async (e)=>{
+
         e.preventDefault();
-        msg.textContent = '';
-        msg.className = 'msg';
+
+        msg.textContent='';
+        msg.className='msg';
 
         const email = form.querySelector('input[name="email"]').value.trim();
+
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          msg.textContent = 'Email non valida';
-          msg.className = 'msg err';
+          msg.textContent='Email non valida';
+          msg.className='msg err';
           return;
         }
 
         try {
-          submit.disabled = true;
+
+          submit.disabled=true;
           const orig = submit.textContent;
-          submit.textContent = 'Invio…';
+          submit.textContent='Invio…';
 
-          const res = await fetch('/gestione_gare/request_account.php', {
-            method: 'POST',
-            body: new FormData(form)
+          const res = await fetch('/gestione_gare/request_account.php',{
+            method:'POST',
+            body:new FormData(form)
           });
+
           const out = await res.json();
-          if (!res.ok || out.error) throw new Error(out.error || 'Errore invio');
 
-          msg.textContent = 'Richiesta inviata. Ti risponderemo al più presto.';
-          msg.className = 'msg ok';
-          setTimeout(close, 1200);
+          if(!res.ok || out.error) throw new Error(out.error || 'Errore invio');
 
-          submit.textContent = orig;
-          submit.disabled = false;
-        } catch (err) {
+          msg.textContent='Richiesta inviata. Ti risponderemo al più presto.';
+          msg.className='msg ok';
+
+          setTimeout(close,1200);
+
+          submit.textContent=orig;
+          submit.disabled=false;
+
+        } catch(err){
+
           msg.textContent = err.message || 'Errore';
-          msg.className = 'msg err';
-          submit.disabled = false;
-          submit.textContent = 'Invia richiesta';
+          msg.className='msg err';
+          submit.disabled=false;
+          submit.textContent='Invia richiesta';
+
         }
+
       });
+
     })();
   </script>
+
 </body>
 </html>
