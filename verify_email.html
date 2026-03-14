@@ -1,210 +1,65 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title class="app-name">Verifica email</title>
-
-<link rel="stylesheet" href="/gestione_gare/css/style.css">
-
-<style>
-
-.verify-wrap{
-max-width:720px;
-margin:8vh auto;
-background:#fff;
-border-radius:10px;
-padding:18px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.center{
-text-align:center;
-}
-
-.muted{
-color:#666;
-}
-
-.ok{
-color:#0a8a0a;
-font-weight:700;
-}
-
-.err{
-color:#c00;
-font-weight:700;
-}
-
-</style>
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Verifica email</title>
+  <link rel="stylesheet" href="/gestione_gare/css/style.css"/>
+  <style>
+    .verify-wrap{max-width:720px;margin:8vh auto;background:#fff;border-radius:10px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .center{text-align:center}
+    .muted{color:#666}
+    .ok{color:#0a8a0a;font-weight:700}
+    .err{color:#c00;font-weight:700}
+  </style>
 </head>
-
-
-
 <body>
-
-<div class="page">
-
-<div class="wrapper verify-wrap">
-
-<div class="center">
-
-
-<!-- LOGO -->
-
-<img class="app-logo"
-src=""
-style="max-height:72px;margin-bottom:12px">
-
-
-<h2 class="app-name">
-
-Verifica indirizzo email
-
-</h2>
-
-
-<p id="msg" class="muted">
-
-Verifica in corso…
-
-</p>
-
-
-<div style="margin-top:12px;">
-
-<a href="/gestione_gare/html/index.html"
-id="btnHome"
-class="btn">
-
-Torna al login
-
-</a>
-
-</div>
-
-
-</div>
-
-</div>
-
-</div>
-
-
-<script>
-
-(function(){
-
-const params=new URLSearchParams(location.search);
-
-const token=params.get('token');
-
-const msgEl=document.getElementById('msg');
-
-
-if(!token){
-
-msgEl.textContent='Token mancante.';
-
-msgEl.className='err';
-
-return;
-
-}
-
-
-fetch('/gestione_gare/users.php?action=verify_email&token='
-+encodeURIComponent(token),{
-
-method:'GET',
-
-headers:{'Accept':'text/html'}
-
-})
-
-.then(r=>r.text())
-
-.then(html=>{
-
-if(/Email aggiornata con successo/i.test(html)){
-
-msgEl.innerHTML='Email aggiornata con successo. Puoi accedere con il nuovo indirizzo.';
-
-msgEl.className='ok';
-
-}else{
-
-msgEl.innerHTML=html;
-
-msgEl.className='err';
-
-}
-
-})
-
-.catch(()=>{
-
-msgEl.textContent='Errore durante la verifica.';
-
-msgEl.className='err';
-
-});
-
-})();
-
-</script>
-
-
-<!-- CONFIG WHITELABEL -->
-
-<script>
-
-async function loadConfig(){
-
-try{
-
-const res=await fetch('/gestione_gare/config_public.php');
-
-const config=await res.json();
-
-
-document.querySelectorAll(".app-logo").forEach(el=>{
-el.src=config.brand.logo;
-});
-
-
-document.querySelectorAll(".app-name").forEach(el=>{
-el.textContent=config.brand.name;
-});
-
-
-document.documentElement.style.setProperty(
-"--primary",
-config.theme.primary
-);
-
-document.documentElement.style.setProperty(
-"--primary-dark",
-config.theme.primary_dark
-);
-
-}catch(e){
-
-console.warn("config non caricata",e);
-
-}
-
-}
-
-loadConfig();
-
-</script>
-
-
+  <div class="page">
+    <div class="wrapper verify-wrap">
+      <div class="center">
+        <img src="/gestione_gare/assets/images.jpeg" alt="Logo" style="max-height:72px;margin-bottom:12px"/>
+        <h2>Verifica indirizzo email</h2>
+        <p id="msg" class="muted">Verifica in corso…</p>
+        <div style="margin-top:12px;">
+          <a href="/gestione_gare/html/index.html" id="btnHome" class="btn">Torna al login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const params = new URLSearchParams(location.search);
+    const token  = params.get('token');
+    const msgEl  = document.getElementById('msg');
+
+    if (!token) {
+      msgEl.textContent = 'Token mancante.';
+      msgEl.className = 'err';
+      return;
+    }
+
+    // L’endpoint restituisce HTML (non JSON). Lo iniettiamo nel messaggio.
+    fetch('/gestione_gare/users.php?action=verify_email&token=' + encodeURIComponent(token), {
+      method: 'GET',
+      headers: { 'Accept': 'text/html' }
+    })
+    .then(r => r.text())
+    .then(html => {
+      // Se contiene “successo” mostriamo OK, altrimenti mostriamo il contenuto così com’è
+      if (/Email aggiornata con successo/i.test(html)) {
+        msgEl.innerHTML = 'Email aggiornata con successo. Puoi accedere con il nuovo indirizzo.';
+        msgEl.className = 'ok';
+      } else {
+        msgEl.innerHTML = html; // contiene messaggio d’errore (token non valido/scaduto/già in uso)
+        msgEl.className = 'err';
+      }
+    })
+    .catch(() => {
+      msgEl.textContent = 'Errore durante la verifica.';
+      msgEl.className = 'err';
+    });
+  })();
+  </script>
 </body>
 </html>

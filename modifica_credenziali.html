@@ -1,192 +1,42 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title class="app-name">Modifica credenziali</title>
-
-<link rel="stylesheet" href="/gestione_gare/css/style.css">
-
-<style>
-
-.wrapper{
-max-width:920px;
-margin:0 auto;
-}
-
-.sec-title{
-font-weight:700;
-margin:12px 0 4px;
-text-align:center;
-}
-
-.status{
-text-align:center;
-font-weight:600;
-margin:8px 0;
-}
-
-.status.error{color:#c00}
-.status.ok{color:#0a8a0a}
-
-</style>
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Modifica credenziali</title>
+  <link rel="stylesheet" href="/gestione_gare/css/style.css"/>
+  <style>
+    .wrapper { max-width: 920px; margin: 0 auto; }
+    .sec-title { font-weight:700; margin: 12px 0 4px; text-align:center; }
+    .status { text-align:center; font-weight:600; margin:8px 0; }
+    .status.error { color:#c00; } .status.ok { color:#0a8a0a; }
+  </style>
 </head>
-
-
 <body>
-
-<div class="page">
-
-<div class="wrapper">
-
-
-<!-- LOGO -->
-
-<div class="row-list">
-
-<div class="field" style="text-align:center">
-
-<img class="app-logo" src="" style="max-width:140px">
-
-</div>
-
-</div>
-
-
-<!-- TITLE -->
-
-<div class="row-list">
-
-<div class="field title">
-
-<span class="app-name">Modifica credenziali</span>
-
-</div>
-
-</div>
-
-
-<div id="status" class="status"></div>
-
-
-<!-- CAMBIO PASSWORD -->
-
-<div class="sec-title">Cambia password</div>
-
-<form id="pwdForm" class="row" style="justify-content:center;gap:8px;">
-
-<div class="field">
-<input id="oldPwd" type="password"
-placeholder="Password attuale *" required>
-</div>
-
-<div class="field">
-<input id="newPwd" type="password"
-placeholder="Nuova password (min 8) *"
-minlength="8" required>
-</div>
-
-<div class="field">
-<input id="newPwd2" type="password"
-placeholder="Conferma nuova password *"
-minlength="8" required>
-</div>
-
-<div class="field" style="flex-basis:100%;text-align:center;">
-
-<button type="submit">Aggiorna password</button>
-
-</div>
-
-</form>
-
-
-<!-- CAMBIO EMAIL -->
-
-<div class="sec-title">Cambia email</div>
-
-<form id="mailForm" class="row" style="justify-content:center;gap:8px;">
-
-<div class="field">
-
-<input id="newEmail" type="email"
-placeholder="Nuova email *" required>
-
-</div>
-
-<div class="field" style="flex-basis:100%;text-align:center;">
-
-<button type="submit">Invia link di verifica</button>
-
-</div>
-
-</form>
-
-
-</div>
-
-</div>
-
-
-<script src="/gestione_gare/js/modifica_credenziali.js?v=1"></script>
-
-
-<!-- CONFIG WHITELABEL -->
-
-<script>
-
-async function loadConfig(){
-
-try{
-
-const res = await fetch("/gestione_gare/config_public.php");
-
-const config = await res.json();
-
-
-/* LOGO */
-
-document.querySelectorAll(".app-logo").forEach(el=>{
-el.src = config.brand.logo;
-});
-
-
-/* BRAND */
-
-document.querySelectorAll(".app-name").forEach(el=>{
-el.textContent = config.brand.name;
-});
-
-
-/* COLORI */
-
-document.documentElement.style.setProperty(
-"--primary",
-config.theme.primary
-);
-
-document.documentElement.style.setProperty(
-"--primary-dark",
-config.theme.primary_dark
-);
-
-}catch(e){
-
-console.warn("config non caricata",e);
-
-}
-
-}
-
-loadConfig();
-
-</script>
-
-
+  <div class="page">
+    <div class="wrapper">
+      <div class="row-list"><div class="field title"><span>Modifica credenziali</span></div></div>
+
+      <div id="status" class="status"></div>
+
+      <!-- Cambio password -->
+      <div class="sec-title">Cambia password</div>
+      <form id="pwdForm" class="row" style="justify-content:center; gap:8px;">
+        <div class="field"><input id="oldPwd" type="password" placeholder="Password attuale *" required /></div>
+        <div class="field"><input id="newPwd" type="password" placeholder="Nuova password (min 8) *" minlength="8" required /></div>
+        <div class="field"><input id="newPwd2" type="password" placeholder="Conferma nuova password *" minlength="8" required /></div>
+        <div class="field" style="flex-basis:100%; text-align:center;"><button type="submit">Aggiorna password</button></div>
+      </form>
+
+      <!-- Cambio email -->
+      <div class="sec-title">Cambia email</div>
+      <form id="mailForm" class="row" style="justify-content:center; gap:8px;">
+        <div class="field"><input id="newEmail" type="email" placeholder="Nuova email *" required /></div>
+        <div class="field" style="flex-basis:100%; text-align:center;"><button type="submit">Invia link di verifica</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/gestione_gare/js/modifica_credenziali.js?v=1"></script>
 </body>
 </html>
