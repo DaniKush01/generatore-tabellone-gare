@@ -236,7 +236,7 @@ fetch('config/config_public.json')
           const orig = submit.textContent;
           submit.textContent='Invio…';
 
-          const res = await fetch('/gestione_gare/request_account.php',{
+          const res = await fetch('/generatore-tabellone-gare/php/request_account.php',{
             method:'POST',
             body:new FormData(form)
           });
