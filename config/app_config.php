@@ -9,7 +9,7 @@ return [
 'brand' => [
     'name' => 'Top Fight',
     'logo' => '/generatore-tabellone-gare/assets/login_logo.jpg',
-    'favicon' => '/gestione_gare/assets/favicon.ico'
+    'favicon' => '/generatore-tabellone-gare/assets/favicon.ico'
 ],
 
 
@@ -115,8 +115,8 @@ return [
 
 'icons' => [
 
-    'logout' => '/gestione_gare/assets/icons/logout.svg',
-    'user' => '/gestione_gare/assets/icons/user.svg'
+    'logout' => '/generatore-tabellone-gare/assets/icons/logout.svg',
+    'user' => '/generatore-tabellone-gare/assets/icons/user.svg'
 
 ]
 
