@@ -164,24 +164,20 @@
 
 
   <!-- CARICAMENTO LOGO DAL CONFIG -->
-  <script>
+ <script>
+fetch('config/config_public.json')
+.then(r => r.json())
+.then(cfg => {
 
-  fetch('/gestione_gare/config/config_public.php')
-  .then(r => r.json())
-  .then(cfg => {
+  const logo = document.getElementById("logoLogin");
 
-      const logo = document.getElementById('logoLogin');
+  if(cfg.brand && cfg.brand.logo){
+      logo.src = cfg.brand.logo;
+  }
 
-      if(cfg.brand && cfg.brand.logo){
-          logo.src = cfg.brand.logo;
-      }
-
-  })
-  .catch(()=>{
-      console.warn("config_public non trovato");
-  });
-
-  </script>
+})
+.catch(err => console.error("Errore caricamento config:", err));
+</script>
 
 
   <!-- MODALE RICHIESTA CREDENZIALI -->
