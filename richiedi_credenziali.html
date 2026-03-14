@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Richiesta credenziali</title>
-  <link rel="stylesheet" href="/gestione_gare/css/style.css" />
+  <link rel="stylesheet" href="/generatore-tabellone-gare/css/style.css" />
   <style>
     .wrapper { max-width: 920px; margin: 0 auto; }
     .row { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
@@ -48,7 +48,7 @@
 
     const fd = new FormData(e.target);
     try {
-      const res = await fetch('/gestione_gare/request_account.php', { method:'POST', body:fd });
+      const res = await fetch('/generatore-tabellone-gare/php/request_account.php', { method:'POST', body:fd });
       const out = await res.json();
       if(!res.ok || out.error) throw new Error(out.error || 'Errore invio');
       status.className = 'status ok';
