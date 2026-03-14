@@ -14,7 +14,7 @@
     if (!isPublic()) location.href = 'index.html';
   }
 
-  fetch('/gestione_gare/me.php', { credentials: 'include' })
+  fetch('/generatore-tabellone-gare/php/me.php', { credentials: 'include' })
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
     .then(function (res) {
 
