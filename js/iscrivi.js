@@ -4,7 +4,7 @@
 
 'use strict';
 
-var API = 'https://jujitsugroup.it/gestione_gare/inserisci_atleta.php';
+var API = 'https://generatore-tabellone-gare.infinityfree.me/inserisci_atleta.php';
 
 var form = document.getElementById('athForm');
 var msg  = document.getElementById('msg');
