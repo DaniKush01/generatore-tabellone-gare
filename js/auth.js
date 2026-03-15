@@ -13,8 +13,7 @@
     sessionStorage.clear();
     if (!isPublic()) location.href = 'index.html';
   }
-
-  fetch('/generatore-tabellone-gare/php/me.php', { credentials: 'include' })
+  fetch('https://generatore-tabellone-gare.infinityfree.me/me.php', { credentials: 'include' })
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, data: j }; }); })
     .then(function (res) {
 
