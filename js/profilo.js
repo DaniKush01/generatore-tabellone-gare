@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4) nav
   btnBack.addEventListener('click', () => history.back());
   btnHome.addEventListener('click', () => location.href = 'menu.html');
-  btnLogout.addEventListener('click', () => location.href = '/gestione_gare/logout.php');
+  btnLogout.addEventListener('click', () => location.href = 'https://generatore-tabellone-gare.infinityfree.me/logout.php');
 
   // avvio
   loadMe();
