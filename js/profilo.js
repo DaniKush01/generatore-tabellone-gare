@@ -1,7 +1,7 @@
 /* profilo.js – Cambio password + richiesta cambio email (self-service) */
 document.addEventListener('DOMContentLoaded', () => {
-  const API_ME    = '/gestione_gare/me.php';
-  const API_USERS = '/gestione_gare/users.php';
+  const API_ME    = 'https://generatore-tabellone-gare.infinityfree.me/me.php';
+  const API_USERS = 'https://generatore-tabellone-gare.infinityfree.me/users.php';
 
   // refs
   const uEmail = document.getElementById('uEmail');
