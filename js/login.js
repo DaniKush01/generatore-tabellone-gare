@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const res = await fetch("https://generatore-tabellone-gare.infinityfree.me/login.php", {
   method: "POST",
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/x-www-form-urlencoded"
   },
-  body: JSON.stringify({
+  body: new URLSearchParams({
     email: email,
     password: pass
   })
