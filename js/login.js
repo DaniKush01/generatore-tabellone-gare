@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
 
-      const res = await fetch('generatore-tabellone-gare/login.php', {
+      const res = await fetch('https://generatore-tabellone-gare.infinityfree.me/login.php', {
 
         method: 'POST',
 
