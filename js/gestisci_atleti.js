@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var API = 'https://jujitsugroup.it/gestione_gare/atleti.php';
+  var API = 'https://generatore-tabellone-gare.infinityfree.me/atleti.php';
 
   // ---- session / auth info ----
   var isAdmin = sessionStorage.getItem('isAdmin') === 'true';
