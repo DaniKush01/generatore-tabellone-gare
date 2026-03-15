@@ -77,18 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-
-      const res = await fetch("https://generatore-tabellone-gare.infinityfree.me/login.php", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        email: email,
-        password: password
-    })
-});
+    const res = await fetch("https://generatore-tabellone-gare.infinityfree.me/login.php", {
+  method: "POST",
+  credentials: "include",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    email: email,
+    password: pass
+  })
+});;
 
       const out = await res.json().catch(() => ({}));
 
