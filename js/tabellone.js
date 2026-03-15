@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const fd = new FormData(form);
 
-    fetch("/gestione_gare/atleti_match.php",{
+    fetch("https://generatore-tabellone-gare.infinityfree.me/atleti_match.php",{
 
       method:"POST",
       body:fd
