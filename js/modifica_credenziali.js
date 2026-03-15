@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.info('modifica_credenziali.js v1');
 
-  const API = '/gestione_gare/users.php';
+  const API = 'https://generatore-tabellone-gare.infinityfree.me/users.php';
   const status = document.getElementById('status');
 
   // ricava l'utente corrente (assumo salvato al login)
