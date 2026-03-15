@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 document.getElementById('btnLogout')?.addEventListener('click', async () => {
   try {
-    await fetch('/gestione_gare/logout.php', { method: 'POST', credentials: 'include' });
+    await fetch('https://generatore-tabellone-gare.infinityfree.me/logout.php', { method: 'POST', credentials: 'include' });
   } catch(_) {}
   sessionStorage.clear();
   location.href = 'index.html';
