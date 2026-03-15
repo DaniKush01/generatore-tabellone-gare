@@ -1,7 +1,7 @@
 /*  gestione_utenti – CRUD via fetch + UX/validazioni/throttle
     Layout: row-list / field (6 colonne)
 ------------------------------------------------------------*/
-const API_URL = 'https://jujitsugroup.it/gestione_gare/users.php';
+const API_URL = 'https://generatore-tabellone-gare.infinityfree.me/users.php';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.info('utenti.js v8');
