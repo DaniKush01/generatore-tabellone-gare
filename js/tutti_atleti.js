@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var API = 'https://jujitsugroup.it/gestione_gare/atleti.php';
+  var API = 'https://generatore-tabellone-gare.infinityfree.me/atleti.php';
 
   // gating admin lato client (opzionale, server resta autorevole)
   var isAdmin = sessionStorage.getItem('isAdmin') === 'true';
